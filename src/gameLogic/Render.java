@@ -2,14 +2,14 @@ package gameLogic;
 
 public class Render {
 
-    private Grid grid;
+    private final Grid grid;
 
     public Render(Grid grid) {
         this.grid = grid;
     }
 
     public void printGrid() {
-        System.out.print(" ");
+        System.out.print("_");
 
         for (int i = 0; i < grid.getHeight(); i++) {
             System.out.print("______");

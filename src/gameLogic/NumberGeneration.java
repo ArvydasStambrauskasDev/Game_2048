@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class NumberGeneration {
 
-    private Grid grid;
+    private final Grid grid;
 
     public NumberGeneration(Grid grid) {
         this.grid = grid;

@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class GameMechanics {
 
-    private Move move;
-    private Grid grid;
-    private Render render;
+    private final Move move;
+    private final Grid grid;
+    private final Render render;
 
     public GameMechanics(Move move, Grid grid, Render render) {
         this.move = move;
@@ -96,6 +96,7 @@ public class GameMechanics {
 
             case NOTHING:
                 break;
+
             default:
                 break;
         }
