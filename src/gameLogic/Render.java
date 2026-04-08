@@ -3,6 +3,7 @@ package gameLogic;
 public class Render {
 
     private final Grid grid;
+    int  maxSpaces = 5; //there are 5 spaces in one block in the output grid
 
     public Render(Grid grid) {
         this.grid = grid;
@@ -19,20 +20,22 @@ public class Render {
 
         for (int i = 0; i < grid.getHeight(); i++) {
             System.out.print("|");
+
             for (int j = 0; j < grid.getWidth(); j++) {
-                if (grid.grid[i][j] == 0) {
-                    System.out.print("     ");
-                } else if (grid.grid[i][j] < 10) {
-                    System.out.print("    " + grid.grid[i][j]);
-                } else if (grid.grid[i][j] >= 10 && grid.grid[i][j] < 100) {
-                    System.out.print("   " + grid.grid[i][j]);
-                } else if (grid.grid[i][j] >= 100 && grid.grid[i][j] < 1000) {
-                    System.out.print("  " + grid.grid[i][j]);
-                } else {
-                    System.out.print(" " + grid.grid[i][j]);
+                if (grid.grid[i][j] != 0){
+                    //outputting only enough spaces to maintain grid structure (one digit number needs 4 spaces, two digit number needs 3 spaces, etc.)
+                    for (int numberLen = Integer.toString(grid.grid[i][j]).length(); (maxSpaces - numberLen) > 0 ; numberLen++) {
+                        System.out.print(" ");
+                    }
+
+                    System.out.print(grid.grid[i][j]);
+                    System.out.print("|");
                 }
-                System.out.print("|");
+                else
+                    System.out.print("     |");
+
             }
+
 
             System.out.println();
             System.out.print("|");
