@@ -3,7 +3,7 @@ package gameLogic;
 public class Render {
 
     private final Grid grid;
-    int  maxSpaces = 5; //there are 5 spaces in one block in the output grid
+    final int maxSpaces = 5; //there are 5 spaces in one block in the output grid
 
     public Render(Grid grid) {
         this.grid = grid;
@@ -23,7 +23,7 @@ public class Render {
 
             for (int j = 0; j < grid.getWidth(); j++) {
                 if (grid.grid[i][j] != 0){
-                    //outputting only enough spaces to maintain grid structure (one digit number needs 4 spaces, two digit number needs 3 spaces, etc.)
+                    //outputting only enough spaces to maintain grid structure (one-digit number needs 4 spaces, two-digit number needs 3 spaces, etc.)
                     for (int numberLen = Integer.toString(grid.grid[i][j]).length(); (maxSpaces - numberLen) > 0 ; numberLen++) {
                         System.out.print(" ");
                     }

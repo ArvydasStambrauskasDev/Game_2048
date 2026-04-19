@@ -14,80 +14,77 @@ public class GameMechanics {
         this.render = render;
     }
 
-    private static int getRandomNum() {
+    private static int getRandomNum(int maxRange) {
         Random num = new Random();
-        return num.nextInt(4);
+        return num.nextInt(maxRange);
     }
 
-    public void gridGameStart(){
-        //starting_numbers = initial numbers we need to print at the game start
-        int starting_numbers = 2;
+    public void gridGameStart() {
+        //startingNumbers is the initial number of non-zero values at game start
+        int startingNumbers = 2;
 
-        for (int i=0; i<starting_numbers ;i++){
-            int x = getRandomNum();
-            int y = getRandomNum();
-            if(grid.grid[y][x] == 0){
-                grid.grid[y][x] = 2;
-            }
-            else {
-                starting_numbers++;
+        for (int i = 0; i < startingNumbers; i++) {
+            int column = getRandomNum(grid.getWidth());
+            int row = getRandomNum(grid.getHeight());
+            if (grid.grid[row][column] == 0) {
+                grid.grid[row][column] = 2;
+            } else {
+                startingNumbers++;
             }
         }
     }
 
-    public void start_control_print(){
-        System.out.println("Game 2048\n"+
-                           "Controls:\n"+
-                           "w - up | a - left | s - down | d - right\n" +
-                           "q - quit/end the game");
+    public void startControlPrint() {
+        printControls();
         gridGameStart();
         render.printGrid();
     }
 
-    public void lossConditionCheck(){
-        if(!move.moveCheck()) {
+    public void printControls() {
+        System.out.println("Game 2048\n" +
+                "Controls:\n" +
+                "w - up | a - left | s - down | d - right\n" +
+                "q - end the game");
+    }
+
+    public void lossConditionCheck() {
+        if (!move.moveCheck()) {
             gameEndLoss();
         }
     }
 
     public void gameEndLoss() {
-       System.out.println("Game Over");
-       System.exit(0);
-}
+        System.out.println("Game Over");
+        System.exit(0);
+    }
 
     public void winConditionCheck() {
-        if(move.getIs2048()) {
+        if (move.getIs2048()) {
             gameEndWin();
         }
     }
 
     public void gameEndWin() {
-        System.out.println("YOU WIN!!!");
+        System.out.println("CONGRATULATIONS!!! YOU WIN!!!");
         System.exit(0);
     }
 
-//    int starting_line, int line_bounds, int move_direction_line, int line_offset,
-//    int starting_column, int column_bounds, int move_direction_column, int column_offset
     public void move(Command command) {
-        switch (command){
+        switch (command) {
             case LEFT:
-                move.move(0,  grid.getHeight()-1,   1,     0,
-                        1,grid.getWidth()-2,1, -1);
+                move.move("left");
                 break;
 
             case RIGHT:
-                move.move(                 0,  grid.getHeight()-1,    1,    0,
-                         grid.getWidth()-2,grid.getWidth()-2,-1, 1);
+                move.move("right");
                 break;
 
             case UP:
-                move.move(1,  grid.getHeight()-2,   1,   -1,
-                        0,grid.getWidth()-1,1, 0);
+                move.move("up");
                 break;
 
             case DOWN:
-                move.move(grid.getHeight()-2, grid.getHeight()-2,  -1,   1,
-                                        0,grid.getWidth()-1,1,0);
+                move.move("down");
                 break;
 
             case QUIT:
@@ -95,11 +92,11 @@ public class GameMechanics {
                 break;
 
             case NOTHING:
+                printControls();
                 break;
 
             default:
                 break;
         }
     }
-
 }
