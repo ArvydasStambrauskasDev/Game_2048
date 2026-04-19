@@ -10,7 +10,6 @@ public class Grid {
      //      0  1  2  3
     };
 
-
     public int getHeight() {
         return grid.length;
     }

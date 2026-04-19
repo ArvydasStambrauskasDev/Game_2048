@@ -15,7 +15,7 @@ public class Main {
 
         //todo add comments on main loop function calls that explains why they are called
         while (true) {
-            mechanics.winConditionCheck();  //todo fix this by checking variable after every addition (if grid[i][j] == 2048) OR make this run a function that goes through all grid variables and checks (at the end of move and if hasMoved was triggered)
+            mechanics.winConditionCheck();
             mechanics.lossConditionCheck(); //todo make this make sense in the implementation
 
             Command command = input.getCommand();

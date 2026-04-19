@@ -14,33 +14,37 @@ public class GameMechanics {
         this.render = render;
     }
 
-    private static int getRandomNum() {
+    private static int getRandomNum(int maxRange) {
         Random num = new Random();
-        return num.nextInt(4);
+        return num.nextInt(maxRange);
     }
 
     public void gridGameStart() {
-        //starting_numbers = initial numbers we need to print at the game start
-        int starting_numbers = 2;
+        //startingNumbers is the initial number of non-zero values at game start
+        int startingNumbers = 2;
 
-        for (int i = 0; i < starting_numbers; i++) {
-            int x = getRandomNum();
-            int y = getRandomNum();
-            if (grid.grid[y][x] == 0) {
-                grid.grid[y][x] = 2;
+        for (int i = 0; i < startingNumbers; i++) {
+            int column = getRandomNum(grid.getWidth());
+            int row = getRandomNum(grid.getHeight());
+            if (grid.grid[row][column] == 0) {
+                grid.grid[row][column] = 2;
             } else {
-                starting_numbers++;
+                startingNumbers++;
             }
         }
     }
 
     public void startControlPrint() {
+        printControls();
+        gridGameStart();
+        render.printGrid();
+    }
+
+    public void printControls() {
         System.out.println("Game 2048\n" +
                 "Controls:\n" +
                 "w - up | a - left | s - down | d - right\n" +
-                "q - quit/end the game");
-        //gridGameStart();
-        render.printGrid();
+                "q - end the game");
     }
 
     public void lossConditionCheck() {
@@ -61,7 +65,7 @@ public class GameMechanics {
     }
 
     public void gameEndWin() {
-        System.out.println("YOU WIN!!!");
+        System.out.println("CONGRATULATIONS!!! YOU WIN!!!");
         System.exit(0);
     }
 
@@ -88,6 +92,7 @@ public class GameMechanics {
                 break;
 
             case NOTHING:
+                printControls();
                 break;
 
             default:

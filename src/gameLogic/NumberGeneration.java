@@ -10,13 +10,13 @@ public class NumberGeneration {
         this.grid = grid;
     }
 
-    public void newNum(String moveDirection) {
+    public void newNum() {
 
         Random num = new Random();
 
         while (true) {
-            int row = num.nextInt(grid.getWidth() - 1);
-            int column = num.nextInt(grid.getHeight() - 1);
+            int row = num.nextInt(grid.getHeight());
+            int column = num.nextInt(grid.getWidth());
             if (grid.grid[row][column] == 0) {
                 grid.grid[row][column] = newRandNum();
                 break;
@@ -28,7 +28,7 @@ public class NumberGeneration {
     private static int newRandNum() {
         int chanceOfBeingTwo = 9;           //90% chance of new number being 2
         Random num = new Random();
-        if (num.nextInt(11) > 9) {
+        if (num.nextInt(11) > chanceOfBeingTwo) {
             return 4;
         } else {
             return 2;
