@@ -10,57 +10,13 @@ public class NumberGeneration {
         this.grid = grid;
     }
 
-    /*
-        public void newNum(int x_line, int x_bounds,
-                           int y_column, int y_bounds) {
-
-            Random num = new Random();
-
-            int lineRange;
-            int columnRange;
-
-            int lineOffset = 0;
-            int columnOffset = 0;
-
-            if(x_line == 0){
-                if(y_column < y_bounds){
-                    columnRange = 2;
-                    lineRange = grid.getWidth()-1;
-                    columnOffset = grid.getWidth()-2;
-                }
-                else{
-                    columnRange = 2;
-                    lineRange = grid.getWidth()-1;
-                }
-            }
-            else if(x_line == 1){
-                lineRange = 2;
-                columnRange = grid.getHeight()-1;
-                lineOffset = grid.getHeight()-2;
-            }
-            else {
-                lineRange = 2;
-                columnRange = grid.getHeight()-1;
-            }
-            System.out.println(lineRange + " " + columnRange);
-
-            while(true){
-                int x = num.nextInt(lineRange);
-                int y = num.nextInt(columnRange);
-                if (grid.grid[x + lineOffset][y + columnOffset] == 0) {
-                    grid.grid[x + lineOffset][y + columnOffset] = newRandNum();
-                    break;
-                }
-            }
-        }
-    */
     public void newNum(String moveDirection) {
 
         Random num = new Random();
 
         while (true) {
-            int row = num.nextInt(grid.getWidth()-1);
-            int column = num.nextInt(grid.getHeight()-1);
+            int row = num.nextInt(grid.getWidth() - 1);
+            int column = num.nextInt(grid.getHeight() - 1);
             if (grid.grid[row][column] == 0) {
                 grid.grid[row][column] = newRandNum();
                 break;

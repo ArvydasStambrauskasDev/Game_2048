@@ -64,43 +64,6 @@ public class GameMechanics {
         System.out.println("YOU WIN!!!");
         System.exit(0);
     }
-/*
-//    int starting_line, int line_bounds, int move_direction_line, int line_offset,
-//    int starting_column, int column_bounds, int move_direction_column, int column_offset
-    public void move(Command command) {
-        switch (command){
-            case LEFT:
-                move.move(0,grid.getHeight()-1,1,0,
-                        1,grid.getWidth()-2,1,-1);
-                break;
-
-            case RIGHT:
-                move.move(0,grid.getHeight()-1,1,0,
-                        grid.getWidth()-2,grid.getWidth()-2,-1,1);
-                break;
-
-            case UP:
-                move.move(1,grid.getHeight()-2,1,-1,
-                        0,grid.getWidth()-1,1,0);
-                break;
-
-            case DOWN:
-                move.move(grid.getHeight()-2, grid.getHeight()-2,-1,1,
-                        0,grid.getWidth()-1,1,0);
-                break;
-
-            case QUIT:
-                gameEndLoss();
-                break;
-
-            case NOTHING:
-                break;
-
-            default:
-                break;
-        }
-    }
-*/
 
     public void move(Command command) {
         switch (command) {

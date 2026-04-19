@@ -16,47 +16,6 @@ public class Move {
         return is2048;
     }
 
-    /*
-    public void move(int starting_line, int line_bounds, int move_direction_line, int line_offset,
-                     int starting_column, int column_bounds, int move_direction_column, int column_offset) {
-
-        boolean didMove = false;
-        int line_axis = starting_line;
-
-        for (int i = 0; i <= line_bounds; i++) {
-
-            int column_axis = starting_column;
-
-            for (int j = 0; j <= column_bounds; j++) {
-
-                if (grid.grid[line_axis][column_axis] == grid.grid[line_axis + line_offset][column_axis + column_offset]
-                        && grid.grid[line_axis][column_axis] != 0) {
-
-                    grid.grid[line_axis + line_offset][column_axis + column_offset] += grid.grid[line_axis][column_axis];
-                    grid.grid[line_axis][column_axis] = 0;
-                    didMove = true;
-                }
-
-                if (grid.grid[line_axis][column_axis] != 0
-                        && grid.grid[line_axis + line_offset][column_axis + column_offset] == 0) {
-
-                    grid.grid[line_axis + line_offset][column_axis + column_offset] = grid.grid[line_axis][column_axis];
-                    grid.grid[line_axis][column_axis] = 0;
-                    didMove = true;
-                }
-
-                column_axis += move_direction_column;
-            }
-
-            line_axis += move_direction_line;
-        }
-
-//        if(didMove){
-            numGen.newNum(starting_line,line_bounds,starting_column,column_bounds);
-        }
-    }
-*/
-
     //Check if there is any possible move
     //todo ok here is the plan - go row by row and check if there is any 0 or any values next to each other that are the same if so - return true
     // also then go column by column and check for same values next to each other and if there is - return true
