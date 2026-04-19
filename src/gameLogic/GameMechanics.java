@@ -19,44 +19,43 @@ public class GameMechanics {
         return num.nextInt(4);
     }
 
-    public void gridGameStart(){
+    public void gridGameStart() {
         //starting_numbers = initial numbers we need to print at the game start
         int starting_numbers = 2;
 
-        for (int i=0; i<starting_numbers ;i++){
+        for (int i = 0; i < starting_numbers; i++) {
             int x = getRandomNum();
             int y = getRandomNum();
-            if(grid.grid[y][x] == 0){
+            if (grid.grid[y][x] == 0) {
                 grid.grid[y][x] = 2;
-            }
-            else {
+            } else {
                 starting_numbers++;
             }
         }
     }
 
-    public void start_control_print(){
-        System.out.println("Game 2048\n"+
-                           "Controls:\n"+
-                           "w - up | a - left | s - down | d - right\n" +
-                           "q - quit/end the game");
-        gridGameStart();
+    public void startControlPrint() {
+        System.out.println("Game 2048\n" +
+                "Controls:\n" +
+                "w - up | a - left | s - down | d - right\n" +
+                "q - quit/end the game");
+        //gridGameStart();
         render.printGrid();
     }
 
-    public void lossConditionCheck(){
-        if(!move.moveCheck()) {
+    public void lossConditionCheck() {
+        if (!move.moveCheck()) {
             gameEndLoss();
         }
     }
 
     public void gameEndLoss() {
-       System.out.println("Game Over");
-       System.exit(0);
-}
+        System.out.println("Game Over");
+        System.exit(0);
+    }
 
     public void winConditionCheck() {
-        if(move.getIs2048()) {
+        if (move.getIs2048()) {
             gameEndWin();
         }
     }
@@ -65,29 +64,29 @@ public class GameMechanics {
         System.out.println("YOU WIN!!!");
         System.exit(0);
     }
-
+/*
 //    int starting_line, int line_bounds, int move_direction_line, int line_offset,
 //    int starting_column, int column_bounds, int move_direction_column, int column_offset
     public void move(Command command) {
         switch (command){
             case LEFT:
-                move.move(0,  grid.getHeight()-1,   1,     0,
-                        1,grid.getWidth()-2,1, -1);
+                move.move(0,grid.getHeight()-1,1,0,
+                        1,grid.getWidth()-2,1,-1);
                 break;
 
             case RIGHT:
-                move.move(                 0,  grid.getHeight()-1,    1,    0,
-                         grid.getWidth()-2,grid.getWidth()-2,-1, 1);
+                move.move(0,grid.getHeight()-1,1,0,
+                        grid.getWidth()-2,grid.getWidth()-2,-1,1);
                 break;
 
             case UP:
-                move.move(1,  grid.getHeight()-2,   1,   -1,
-                        0,grid.getWidth()-1,1, 0);
+                move.move(1,grid.getHeight()-2,1,-1,
+                        0,grid.getWidth()-1,1,0);
                 break;
 
             case DOWN:
-                move.move(grid.getHeight()-2, grid.getHeight()-2,  -1,   1,
-                                        0,grid.getWidth()-1,1,0);
+                move.move(grid.getHeight()-2, grid.getHeight()-2,-1,1,
+                        0,grid.getWidth()-1,1,0);
                 break;
 
             case QUIT:
@@ -101,5 +100,35 @@ public class GameMechanics {
                 break;
         }
     }
+*/
 
+    public void move(Command command) {
+        switch (command) {
+            case LEFT:
+                move.move("left");
+                break;
+
+            case RIGHT:
+                move.move("right");
+                break;
+
+            case UP:
+                move.move("up");
+                break;
+
+            case DOWN:
+                move.move("down");
+                break;
+
+            case QUIT:
+                gameEndLoss();
+                break;
+
+            case NOTHING:
+                break;
+
+            default:
+                break;
+        }
+    }
 }
