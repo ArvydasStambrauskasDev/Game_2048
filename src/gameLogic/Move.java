@@ -51,165 +51,149 @@ public class Move {
             line_axis += move_direction_line;
         }
 
-        if(didMove){
+//        if(didMove){
             numGen.newNum(starting_line,line_bounds,starting_column,column_bounds);
         }
     }
 */
 
-    //===================================
     //Check if there is any possible move
+    //todo ok here is the plan - go row by row and check if there is any 0 or any values next to each other that are the same if so - return true
+    // also then go column by column and check for same values next to each other and if there is - return true
     public boolean moveCheck() {
-        boolean canMove = false;
-        //CHECK MOVE RIGHT
-        for (int i = 3; i >= 0; i--) {
-            for (int j = 3; j > 0; j--) {
-                if (grid.grid[i][j] == grid.grid[i][j - 1]) {
-                    canMove = true;
-                }
-                if (grid.grid[i][j] == 0) {
-                    canMove = true;
-                }
+        int compareDimensionCoordinate;
+        //look for 0 values or the same values next to each other
+        for (int i = 0; i < grid.getHeight(); i++) {
+            compareDimensionCoordinate = 0;
+            for (int j = 1; j < grid.getWidth(); j++) {
+                if (grid.grid[i][j] == 0 || grid.grid[i][compareDimensionCoordinate] == 0)
+                    return true;
+                else if (grid.grid[i][j] == grid.grid[i][compareDimensionCoordinate])
+                    return true;
+
+                if (grid.grid[j][i] == 0 || grid.grid[compareDimensionCoordinate][i] == 0)
+                    return true;
+                else if (grid.grid[j][i] == grid.grid[compareDimensionCoordinate][i])
+                    return true;
+
+                compareDimensionCoordinate++;
             }
         }
 
-        //CHECK MOVE LEFT
-        for (int i = 0; i <= 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid.grid[i][j] == grid.grid[i][j + 1]) {
-                    canMove = true;
-                }
-                if (grid.grid[i][j] == 0) {
-                    canMove = true;
-                }
-            }
-        }
-
-        //CHECK MOVE UP
-        for (int i = 0; i <= 2; i++) {
-            for (int j = 0; j <= 3; j++) {
-                if (grid.grid[i][j] == grid.grid[i + 1][j]) {
-                    canMove = true;
-                }
-                if (grid.grid[i][j] == 0) {
-                    canMove = true;
-                }
-            }
-        }
-
-        //CHECK MOVE DOWN
-        for (int i = 3; i > 0; i--) {
-            for (int j = 3; j >= 0; j--) {
-                if (grid.grid[i][j] == grid.grid[i - 1][j]) {
-                    canMove = true;
-                }
-                if (grid.grid[i][j] == 0) {
-                    canMove = true;
-                }
-            }
-        }
-        return canMove;
+        return false;
     }
 
 
-    public boolean move(String moveDirection) {
+    public void move(String moveDirection) {
         boolean didMove = false;
-        int firstDimensionStart = 0;
-        int firstDimensionEnd = 0;
-        int secondDimensionStart = 0;
-        int secondDimensionEnd = 0;
-        int firstDimensionIncrement = 1;
-        int secondDimensionIncrement = 1;
-        int compareDimensionPosition;
-        int compareDimensionIterator;
-        int moveAxisPosition;
-        int row = 0;
-        int column = 0;
+        int auxiliaryDimensionStart = 9999;
+        int auxiliaryDimensionEnd = 9999;
+        int compareDimensionStart = 9999;
+        int compareDimensionEnd = 9999;
+        int auxiliaryDimensionIncrement = 0;
+        int compareDimensionIncrement = 0;
+        int compareColumnPosition;
+        int compareRowPosition;
+        int row;
+        int column;
 
         //firstDimension is column or row where "move" happens. Depending on the direction "move" is the variables make the comparison from side to side, up or down in the grid array
         switch (moveDirection) {
-            case "up":
-                firstDimensionStart = 0;                        //First dimension is rows
-                firstDimensionEnd = grid.getWidth();
-                firstDimensionIncrement = 1;
-                secondDimensionStart = 0;                       //Second dimension is columns
-                secondDimensionEnd = grid.getHeight();
-                secondDimensionIncrement = 1;
+            case "up":                                          //moving all values from the top left most comparing row by row in the column and then iterating through columns with same compare process
+                auxiliaryDimensionStart = 0;                    //start of columns
+                auxiliaryDimensionEnd = grid.getWidth();        //end of columns
+                auxiliaryDimensionIncrement = 1;                //column iterator
+                compareDimensionStart = 0;                      //Comparing values row by row in columns
+                compareDimensionEnd = grid.getHeight();
+                compareDimensionIncrement = 1;
                 break;
-            case "down":
-                firstDimensionStart = 0;                        //First dimension is rows
-                firstDimensionEnd = grid.getWidth();
-                secondDimensionStart = grid.getHeight() - 1;    //Second dimension is columns
-                secondDimensionEnd = -1;
-                secondDimensionIncrement = -1;
+            case "down":                                        //moving all values from the bottom left most comparing row by row moving up in the column and then iterating through columns with same compare process
+                auxiliaryDimensionStart = 0;                    //start of columns
+                auxiliaryDimensionEnd = grid.getWidth();        //end of columns
+                auxiliaryDimensionIncrement = 1;                //column iterator
+                compareDimensionStart = grid.getHeight() - 1;       //Comparing values row by row in columns
+                compareDimensionEnd = -1;
+                compareDimensionIncrement = -1;
                 break;
-            case "left":
-                firstDimensionStart = 0;                        //First dimension is columns
-                firstDimensionEnd = grid.getHeight();
-                secondDimensionStart = 0;                       //Second dimension is rows
-                secondDimensionEnd = grid.getWidth();
-                secondDimensionIncrement = 1;
+            case "left":                                        //moving all values from the top left most comparing column by column and then iterating through rows with same compare process
+                auxiliaryDimensionStart = 0;                    //start of rows
+                auxiliaryDimensionEnd = grid.getHeight();       //end of rows
+                auxiliaryDimensionIncrement = 1;                //row iterator
+                compareDimensionStart = 0;                      //Comparing values column by column in a row
+                compareDimensionEnd = grid.getWidth();
+                compareDimensionIncrement = 1;
                 break;
-            case "right":
-                firstDimensionStart = 0;                        //First dimension is the columns
-                firstDimensionEnd = grid.getHeight();
-                secondDimensionStart = grid.getWidth() - 1;     //Second dimension is rows
-                secondDimensionEnd = -1;
-                secondDimensionIncrement = -1;
+            case "right":                                       //moving all values from the top right most comparing column by column and then iterating through rows with same compare process
+                auxiliaryDimensionStart = 0;                    //start of rows
+                auxiliaryDimensionEnd = grid.getHeight();       //end of rows
+                auxiliaryDimensionIncrement = 1;                //row iterator
+                compareDimensionStart = grid.getWidth() - 1;        //Comparing values column by column in a row
+                compareDimensionEnd = -1;
+                compareDimensionIncrement = -1;
                 break;
         }
 
-//todo remake for loop logic to be != and not <= becuase it has a problem with starting at max -1 grid value
-//ALSO up is acting as left and down is acting as right. NEED row comparePositionStart because only var in the j dimension doesnt work for 2 cases
-        for (int i = firstDimensionStart; i != firstDimensionEnd; i += firstDimensionIncrement) {
+        for (int i = auxiliaryDimensionStart; i != auxiliaryDimensionEnd; i += auxiliaryDimensionIncrement) {
             if (moveDirection.equals("up") || moveDirection.equals("down")) {
-                compareDimensionPosition = i;
-                moveAxisPosition = secondDimensionStart;
-                compareDimensionIterator = secondDimensionIncrement;
-                column = i;
+                compareRowPosition = compareDimensionStart;
+                compareColumnPosition = i;
             } else {
-                compareDimensionPosition = secondDimensionStart;
-                moveAxisPosition = i;
-                compareDimensionIterator = firstDimensionIncrement;
-                row = i;
+                compareRowPosition = i;
+                compareColumnPosition = compareDimensionStart;
             }
-            for (int j = secondDimensionStart; j != secondDimensionEnd; j += secondDimensionIncrement) {
 
-                if (moveDirection.equals("up") || moveDirection.equals("down"))
+            for (int j = compareDimensionStart + compareDimensionIncrement; j != compareDimensionEnd; j += compareDimensionIncrement) {
+                if (moveDirection.equals("up") || moveDirection.equals("down")) {
                     row = j;
-                else
+                    column = i;
+                } else {
                     column = j;
+                    row = i;
+                }
 
-                 /*
-                if (grid.grid[moveAxisPosition][compareDimensionPosition] == 0) {
+                //if the value is 0 this finds the next subsequent value that is not 0 and moves it to the spot where the initial 0 was
+                if (grid.grid[compareRowPosition][compareColumnPosition] == 0) {
                     if (grid.grid[row][column] != 0) {
-                        grid.grid[moveAxisPosition][compareDimensionPosition] = grid.grid[row][column];
+                        grid.grid[compareRowPosition][compareColumnPosition] = grid.grid[row][column];
                         grid.grid[row][column] = 0;
 
                         didMove = true;
                     }
                 }
-                // if the starting value is not 0 need to add is the following value is the same or move value it if it's different
-                if (grid.grid[moveAxisPosition][compareDimensionPosition] != 0) {
-                    // if the values are the same and are only separated by 0 - they should be added up
-                    if (grid.grid[moveAxisPosition][compareDimensionPosition] == grid.grid[row][column]) {
-                        grid.grid[moveAxisPosition][compareDimensionPosition] += grid.grid[row][column];
+
+                //if the compare value is not 0 need to add is the following value is the same or move value it if it's different
+                if (grid.grid[compareRowPosition][compareColumnPosition] != 0) {
+                    //if the values are the same and next to each other or only separated by 0 in the row/column they should be added up
+                    if (grid.grid[compareRowPosition][compareColumnPosition] == grid.grid[row][column]) {
+                        grid.grid[compareRowPosition][compareColumnPosition] += grid.grid[row][column];
                         grid.grid[row][column] = 0;
 
-                        compareDimensionPosition += compareDimensionIterator;
+                        if (moveDirection.equals("up") || moveDirection.equals("down"))
+                            compareRowPosition += compareDimensionIncrement;
+                        else
+                            compareColumnPosition += compareDimensionIncrement;
+
                         didMove = true;
                     }
-                    // if the values are only separated by 0 but are not the same - value needs to move next to non 0 value
-                    if (grid.grid[moveAxisPosition][compareDimensionPosition] != grid.grid[row][column] && grid.grid[row][column] != 0 && compareDimensionPosition != secondDimensionEnd) {
-                        j = compareDimensionPosition;
-                        didMove = true;
+                    //if the values are next to each other or only separated by 0 in the row/column but are not the same - value needs to move next to non 0 value
+                    if (grid.grid[compareRowPosition][compareColumnPosition] != grid.grid[row][column] && grid.grid[row][column] != 0 && compareColumnPosition != (compareDimensionEnd + compareDimensionIncrement)) {
+                        if (moveDirection.equals("up") || moveDirection.equals("down")) {
+                            compareRowPosition += compareDimensionIncrement;
+                            j = compareRowPosition;
+                        } else {
+                            compareColumnPosition += compareDimensionIncrement;
+                            j = compareColumnPosition;
+                        }
                     }
                 }
-                */
             }
         }
 
-        return didMove;
+        if (didMove) {
+            numGen.newNum(moveDirection);
+
+        }
+
     }
 }
 
