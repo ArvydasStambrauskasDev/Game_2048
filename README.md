@@ -5,5 +5,7 @@ The initial version does not have a GUI and is played in console.
 Project goals:
 1.Implement default rules where numbers slide as far as they can and not 1 tile per move
 2.Fix edge cases where possible movement does not happen
-3.Make .exe version 
-4.Make a GUI version
+3.Make a GUI version
+4.Make .exe version 
+5.(Bonus_1) make score version
+6.(Bonus_2) make android version
