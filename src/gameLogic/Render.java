@@ -9,7 +9,7 @@ public class Render {
         this.grid = grid;
     }
 
-    public void printGrid() {
+    public void printGrid(int score) {
         System.out.print("_");
 
         for (int i = 0; i < grid.getHeight(); i++) {
@@ -46,6 +46,7 @@ public class Render {
 
             System.out.println();
         }
+        System.out.println("Score: " + score);
         System.out.println();
     }
 }

@@ -7,6 +7,7 @@ public class GameMechanics {
     private final Move move;
     private final Grid grid;
     private final Render render;
+    private int score = 0;
 
     public GameMechanics(Move move, Grid grid, Render render) {
         this.move = move;
@@ -37,7 +38,7 @@ public class GameMechanics {
     public void startControlPrint() {
         printControls();
         gridGameStart();
-        render.printGrid();
+        render.printGrid(score);
     }
 
     public void printControls() {
@@ -69,22 +70,26 @@ public class GameMechanics {
         System.exit(0);
     }
 
+    public int getScore(){
+        return score;
+    }
+
     public void move(Command command) {
         switch (command) {
             case LEFT:
-                move.move("left");
+                score = move.move("left",score);
                 break;
 
             case RIGHT:
-                move.move("right");
+                score = move.move("right",score);
                 break;
 
             case UP:
-                move.move("up");
+                score = move.move("up",score);
                 break;
 
             case DOWN:
-                move.move("down");
+                score = move.move("down",score);
                 break;
 
             case QUIT:

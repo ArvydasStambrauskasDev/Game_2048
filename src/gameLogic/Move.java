@@ -41,7 +41,7 @@ public class Move {
     }
 
 
-    public void move(String moveDirection) {
+    public int move(String moveDirection, int score) {
         boolean didMove = false;
         int auxiliaryDimensionStart = 9999;
         int auxiliaryDimensionEnd = 9999;
@@ -127,6 +127,8 @@ public class Move {
                         grid.grid[compareRowPosition][compareColumnPosition] += grid.grid[row][column];
                         grid.grid[row][column] = 0;
 
+                        score += grid.grid[compareRowPosition][compareColumnPosition];
+
                         if (moveDirection.equals("up") || moveDirection.equals("down"))
                             compareRowPosition += compareDimensionIncrement;
                         else
@@ -152,6 +154,7 @@ public class Move {
             numGen.newNum();
         }
 
+        return score;
     }
 }
 

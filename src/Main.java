@@ -21,7 +21,7 @@ public class Main {
             Command command = input.getCommand();
 
             mechanics.move(command); //todo look into default and "nothing" input
-            render.printGrid();
+            render.printGrid(mechanics.getScore());
         }
     }
 
