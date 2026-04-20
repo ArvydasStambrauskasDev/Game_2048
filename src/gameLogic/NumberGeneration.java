@@ -10,6 +10,7 @@ public class NumberGeneration {
         this.grid = grid;
     }
 
+    //finds a empty spot in the grid and inserts new value (2 or 4 - see method newRandNum below)
     public void newNum() {
 
         Random num = new Random();
