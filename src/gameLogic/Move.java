@@ -89,6 +89,7 @@ public class Move {
                 break;
             default:
                 return score;
+
         }
 
         for (int i = auxiliaryDimensionStart; i != auxiliaryDimensionEnd; i += auxiliaryDimensionIncrement) {
