@@ -4,6 +4,12 @@ public class Move {
 
     private final Grid grid;
     private final NumberGeneration numGen;
+    private int auxiliaryDimensionStart;
+    private int auxiliaryDimensionEnd;
+    private int auxiliaryDimensionIncrement;
+    private int compareDimensionStart;
+    private int compareDimensionEnd;
+    private int compareDimensionIncrement;
 
     public Move(Grid grid, NumberGeneration numGen) {
         this.grid = grid;
@@ -41,19 +47,7 @@ public class Move {
     }
 
 
-    public int move(String moveDirection, int score) {
-        boolean didMove = false;
-        int auxiliaryDimensionStart;
-        int auxiliaryDimensionEnd;
-        int compareDimensionStart;
-        int compareDimensionEnd;
-        int auxiliaryDimensionIncrement;
-        int compareDimensionIncrement;
-        int compareColumnPosition;
-        int compareRowPosition;
-        int row;
-        int column;
-
+    private boolean setBasedOnDirrection(String moveDirection){
         switch (moveDirection) {
             case "up":                                          //moving all values from the top left most comparing row by row in the column and then iterating through columns with same compare process
                 auxiliaryDimensionStart = 0;                    //start of columns
@@ -62,7 +56,7 @@ public class Move {
                 compareDimensionStart = 0;                      //start position in row
                 compareDimensionEnd = grid.getHeight();         //value of end of row
                 compareDimensionIncrement = 1;                  //row iterator
-                break;
+                return true;
             case "down":                                        //moving all values from the bottom left most comparing row by row moving up in the column and then iterating through columns with same compare process
                 auxiliaryDimensionStart = 0;                    //start of columns
                 auxiliaryDimensionEnd = grid.getWidth();        //end of columns
@@ -70,15 +64,15 @@ public class Move {
                 compareDimensionStart = grid.getHeight() - 1;   //start position in row
                 compareDimensionEnd = -1;                       //value of end in row
                 compareDimensionIncrement = -1;                 //row iterator
-                break;
+                return true;
             case "left":                                        //moving all values from the top left most comparing column by column and then iterating through rows with same compare process
                 auxiliaryDimensionStart = 0;                    //start of rows
                 auxiliaryDimensionEnd = grid.getHeight();       //end of rows
                 auxiliaryDimensionIncrement = 1;                //row iterator
                 compareDimensionStart = 0;                      //start of position in column
                 compareDimensionEnd = grid.getWidth();          //value of end in columns
-                compareDimensionIncrement = 1;                  //column iterator
-                break;
+                compareDimensionIncrement = 1;                  //value of end in columns
+                return true;
             case "right":                                       //moving all values from the top right most comparing column by column and then iterating through rows with same compare process
                 auxiliaryDimensionStart = 0;                    //start of rows
                 auxiliaryDimensionEnd = grid.getHeight();       //end of rows
@@ -86,10 +80,21 @@ public class Move {
                 compareDimensionStart = grid.getWidth() - 1;    //start position in columns
                 compareDimensionEnd = -1;                       //value of end in columns
                 compareDimensionIncrement = -1;                 //column iterator
-                break;
+                return true;
             default:
-                return score;
+                return false;
+        }
+    }
 
+    public int move(String moveDirection, int score) {
+        boolean didMove = false;
+        int compareColumnPosition;
+        int compareRowPosition;
+        int row;
+        int column;
+
+        if (!setBasedOnDirrection(moveDirection)){
+            return score;
         }
 
         for (int i = auxiliaryDimensionStart; i != auxiliaryDimensionEnd; i += auxiliaryDimensionIncrement) {
