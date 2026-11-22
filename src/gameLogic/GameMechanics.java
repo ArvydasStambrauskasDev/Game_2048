@@ -76,30 +76,24 @@ public class GameMechanics {
 
     public void move(Command command) {
         switch (command) {
-            case LEFT:
-                score = move.move("left",score);
-                break;
-
-            case RIGHT:
-                score = move.move("right",score);
-                break;
-
             case UP:
                 score = move.move("up",score);
                 break;
-
             case DOWN:
                 score = move.move("down",score);
                 break;
-
+            case LEFT:
+                score = move.move("left",score);
+                break;
+            case RIGHT:
+                score = move.move("right",score);
+                break;
             case QUIT:
                 gameEndLoss();
                 break;
-
             case NOTHING:
                 printControls();
                 break;
-
             default:
                 break;
         }
