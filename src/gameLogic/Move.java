@@ -87,6 +87,8 @@ public class Move {
                 compareDimensionEnd = -1;                       //value of end in columns
                 compareDimensionIncrement = -1;                 //column iterator
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown move direction: " + moveDirection);
         }
 
         for (int i = auxiliaryDimensionStart; i != auxiliaryDimensionEnd; i += auxiliaryDimensionIncrement) {
