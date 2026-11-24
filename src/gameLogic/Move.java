@@ -23,14 +23,7 @@ public class Move {
         for (int i = 0; i < grid.getWidth(); i++) {
             compareDimensionCoordinate = 0;
             for (int j = 1; j < grid.getHeight(); j++) {
-                if (grid.grid[i][j] == 0 || grid.grid[i][compareDimensionCoordinate] == 0)
-                    return true;
-                else if (grid.grid[i][j] == grid.grid[i][compareDimensionCoordinate])
-                    return true;
-
-                if (grid.grid[j][i] == 0 || grid.grid[compareDimensionCoordinate][i] == 0)
-                    return true;
-                else if (grid.grid[j][i] == grid.grid[compareDimensionCoordinate][i])
+                if (grid.grid[i][j] == 0 || grid.grid[i][compareDimensionCoordinate] == 0 || grid.grid[j][i] == grid.grid[compareDimensionCoordinate][i] || grid.grid[i][j] == grid.grid[i][compareDimensionCoordinate])
                     return true;
 
                 compareDimensionCoordinate++;
