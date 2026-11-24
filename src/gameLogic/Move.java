@@ -108,18 +108,7 @@ public class Move {
                     row = i;
                 }
 
-                //if the value is 0 this finds the next subsequent value that is not 0 and moves it to the spot where the initial 0 was
-                if (grid.grid[compareRowPosition][compareColumnPosition] == 0) {
-                    if (grid.grid[row][column] != 0) {
-                        grid.grid[compareRowPosition][compareColumnPosition] = grid.grid[row][column];
-                        grid.grid[row][column] = 0;
-
-                        //check if value is 2048 for win game end
-                        if (grid.grid[compareRowPosition][compareColumnPosition] == 2048)
-                            is2048 = true;
-                        didMove = true;
-                    }
-                }
+                didMove |= moveToEmpty(compareRowPosition,compareColumnPosition,row,column);
 
                 //if the compare value is not 0 need to add is the following value is the same or move value it if it's different
                 if (grid.grid[compareRowPosition][compareColumnPosition] != 0) {
@@ -135,6 +124,7 @@ public class Move {
 
                         didMove = true;
                     }
+
                     //if the values are next to each other or only separated by 0 in the row/column but are not the same - value needs to move next to non 0 value
                     if (grid.grid[compareRowPosition][compareColumnPosition] != grid.grid[row][column] && grid.grid[row][column] != 0 && compareColumnPosition != (compareDimensionEnd + compareDimensionIncrement)) {
                         if (moveDirection.equals("up") || moveDirection.equals("down")) {
@@ -154,5 +144,20 @@ public class Move {
         }
 
     }
+
+    private boolean moveToEmpty(int compareRowPosition, int compareColumnPosition, int row, int column) {
+        if (grid.grid[compareRowPosition][compareColumnPosition] == 0) {
+            if (grid.grid[row][column] != 0) {
+                grid.grid[compareRowPosition][compareColumnPosition] = grid.grid[row][column];
+                grid.grid[row][column] = 0;
+
+                if (grid.grid[compareRowPosition][compareColumnPosition] == 2048)
+                    is2048 = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
