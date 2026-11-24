@@ -26,9 +26,9 @@ public class NumberGeneration {
 
     //Generates new numbers after moving | New number has a chance being 2 or 4
     private static int newRandNum() {
-        int chanceOfBeingTwo = 9;           //90% chance of new number being 2
         Random num = new Random();
-        if (num.nextInt(11) > chanceOfBeingTwo) {
+
+        if (num.nextInt(10) == 0) {
             return 4;
         } else {
             return 2;
