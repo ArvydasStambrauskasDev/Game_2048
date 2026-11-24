@@ -36,12 +36,12 @@ public class Move {
 
     public void move(String moveDirection) {
         boolean didMove = false;
-        int auxiliaryDimensionStart = 9999;
-        int auxiliaryDimensionEnd = 9999;
-        int compareDimensionStart = 9999;
-        int compareDimensionEnd = 9999;
-        int auxiliaryDimensionIncrement = 0;
-        int compareDimensionIncrement = 0;
+        int auxiliaryDimensionStart;
+        int auxiliaryDimensionEnd;
+        int compareDimensionStart;
+        int compareDimensionEnd;
+        int auxiliaryDimensionIncrement;
+        int compareDimensionIncrement;
         int compareColumnPosition;
         int compareRowPosition;
         int row;
@@ -80,6 +80,8 @@ public class Move {
                 compareDimensionEnd = -1;                       //value of end in columns
                 compareDimensionIncrement = -1;                 //column iterator
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown move direction: " + moveDirection);
         }
 
         for (int i = auxiliaryDimensionStart; i != auxiliaryDimensionEnd; i += auxiliaryDimensionIncrement) {
